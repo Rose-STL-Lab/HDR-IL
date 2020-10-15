@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+<robot name="simple_box">
+  <link name="my_box">
+    <inertial>
+      <origin xyz="0 0 1" />
+      <mass value="1" />
+      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 1"/>
+      <geometry>
+        <box size="2 2 2" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 1"/>
+      <geometry>
+        <box size="2 2 2" />
+      </geometry>
+    </collision>
+  </link>
+
+
+
+  <link name="1_1_marker">
+    <inertial>
+      <origin xyz="1 1 2" />
+      <mass value="0" />
+      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <origin xyz="1 1 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1 1 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+  </link>
+
+
+
+  <link name="-1_-1_marker">
+    <inertial>
+      <origin xyz="-1 -1 2"/>
+      <mass value="0" />
+      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <origin xyz="-1 -1 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-1 -1 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+  </link>
+
+
+
+
+  <link name="-1_1_marker">
+    <inertial>
+      <origin xyz="-1 1 2"/>
+      <mass value="0" />
+      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <origin xyz="-1 1 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-1 1 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+  </link>
+
+
+
+
+  <link name="1_-1_marker">
+    <inertial>
+      <origin xyz="1 -1 2"/>
+      <mass value="0" />
+      <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="100.0"  iyz="0.0"  izz="1.0" />
+    </inertial>
+    <visual>
+      <origin xyz="1 -1 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1 -1 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="position_marker_front">
+    <inertial>
+      <origin xyz="-1 0 2" />
+      <mass value="0" />
+      <inertia  ixx="0" ixy="0"  ixz="0"  iyy="0"  iyz="0"  izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="-1 0 2"/>
+      <geometry>
+        <box size="1.8 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-1 0 2"/>
+      <geometry>
+        <box size="0 0 0" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link name="position_base_front">
+    <inertial>
+      <origin xyz="-1.9 0 2" />
+      <mass value="0" />
+      <inertia  ixx="0" ixy="0"  ixz="0.0"  iyy="0"  iyz="0"  izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="-1.9 0 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-1.9 0 2"/>
+      <geometry>
+        <box size="0 0 0" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="position_marker_right">
+    <inertial>
+      <origin xyz="0 -1 2" />
+      <mass value="0" />
+      <inertia  ixx="0" ixy="0"  ixz="0"  iyy="0"  iyz="0"  izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 -1 2"/>
+      <geometry>
+        <box size="0.1 1.8 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -1 2"/>
+      <geometry>
+        <box size="0 0 0" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link name="position_base_right">
+    <inertial>
+      <origin xyz="0 -1.9 2" />
+      <mass value="0" />
+      <inertia  ixx="0" ixy="0"  ixz="0.0"  iyy="0"  iyz="0"  izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 -1.9 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -1.9 2"/>
+      <geometry>
+        <box size="0 0 0" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="position_marker_left">
+    <inertial>
+      <origin xyz="0 1 2" />
+      <mass value="0" />
+      <inertia  ixx="0" ixy="0"  ixz="0"  iyy="0"  iyz="0"  izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 1 2"/>
+      <geometry>
+        <box size="0.1 1.8 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 1 2"/>
+      <geometry>
+        <box size="0 0 0" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link name="position_base_left">
+    <inertial>
+      <origin xyz="0 1.9 2" />
+      <mass value="0" />
+      <inertia  ixx="0" ixy="0"  ixz="0.0"  iyy="0"  iyz="0"  izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 1.9 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 1.9 2"/>
+      <geometry>
+        <box size="0 0 0" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="position_marker_back">
+    <inertial>
+      <origin xyz="1 0 2" />
+      <mass value="0" />
+      <inertia  ixx="0" ixy="0"  ixz="0"  iyy="0"  iyz="0"  izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="1 0 2"/>
+      <geometry>
+        <box size="1.8 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1 0 2"/>
+      <geometry>
+        <box size="0 0 0" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link name="position_base_back">
+    <inertial>
+      <origin xyz="1.9 0 2" />
+      <mass value="0" />
+      <inertia  ixx="0" ixy="0"  ixz="0.0"  iyy="0"  iyz="0"  izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="1.9 0 2"/>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1.9 0 2"/>
+      <geometry>
+        <box size="0 0 0" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="corner_1" type="fixed">
+    <parent link="my_box"/>
+    <child link="1_1_marker"/>
+  </joint>
+
+  <joint name="corner_2" type="fixed">
+    <parent link="my_box"/>
+    <child link="-1_-1_marker"/>
+  </joint>
+
+  <joint name="corner_3" type="fixed">
+    <parent link="my_box"/>
+    <child link="-1_1_marker"/>
+  </joint>
+
+  <joint name="corner_4" type="fixed">
+    <parent link="my_box"/>
+    <child link="1_-1_marker"/>
+  </joint>
+
+  <joint name="position_joint_front" type="fixed">
+    <parent link="my_box"/>
+    <child link="position_marker_front"/>
+  </joint>
+
+  <joint name="position_base_joint_front" type="fixed">
+    <parent link="position_marker_front"/>
+    <child link="position_base_front"/>
+  </joint>
+
+  <joint name="position_joint_right" type="fixed">
+    <parent link="my_box"/>
+    <child link="position_marker_right"/>
+  </joint>
+
+  <joint name="position_base_joint_right" type="fixed">
+    <parent link="position_marker_right"/>
+    <child link="position_base_right"/>
+  </joint>
+
+  <joint name="position_joint_left" type="fixed">
+    <parent link="my_box"/>
+    <child link="position_marker_left"/>
+  </joint>
+
+  <joint name="position_base_joint_left" type="fixed">
+    <parent link="position_marker_left"/>
+    <child link="position_base_left"/>
+  </joint>
+
+  <joint name="position_joint_back" type="fixed">
+    <parent link="my_box"/>
+    <child link="position_marker_back"/>
+  </joint>
+
+  <joint name="position_base_joint_back" type="fixed">
+    <parent link="position_marker_back"/>
+    <child link="position_base_back"/>
+  </joint>
+
+</robot>
