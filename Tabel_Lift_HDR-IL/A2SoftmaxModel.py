@@ -3,7 +3,7 @@ import math
 import inline as inline
 import matplotlib
 import numpy as np
-from IPython.display import clear_output
+
 #from tqdm import tqdm_notebook as tqdm
 
 import matplotlib as mpl
@@ -254,14 +254,6 @@ class LinearODEF(ODEF):
         return self.lin(x)
 
 
-class SpiralFunctionExample(LinearODEF):
-    def __init__(self):
-        super(SpiralFunctionExample, self).__init__(Tensor([[-0.1, -1.], [1., -0.1]]))
-
-
-class RandomLinearODEF(LinearODEF):
-    def __init__(self):
-        super(RandomLinearODEF, self).__init__(torch.randn(2, 2) / 2.)
 
 
 class NNODEF(ODEF):
@@ -290,167 +282,6 @@ class NNODEF(ODEF):
         h = self.elu(self.lin2(h))
         out = self.lin3(h)
         return out
-
-
-def to_np(x):
-    return x.detach().cpu().numpy()
-
-
-def plot_trajectories(obs=None, times=None, trajs=None, save=None, figsize=(16, 8)):
-    plt.figure(figsize=figsize)
-    if obs is not None:
-        if times is None:
-            times = [None] * len(obs)
-        for o, t in zip(obs, times):
-            o, t = NNODEF.to_np(o), NNODEF.to_np(t)
-            for b_i in range(o.shape[1]):
-                plt.scatter(o[:, b_i, 0], o[:, b_i, 1], c=t[:, b_i, 0], cmap=cm.plasma)
-
-    if trajs is not None:
-        for z in trajs:
-            z = NNODEF.to_np(z)
-            plt.plot(z[:, 0, 0], z[:, 0, 1], lw=1.5)
-        if save is not None:
-            plt.savefig(save)
-    plt.show()
-
-
-def conduct_experiment(ode_true, ode_trained, n_steps, name, plot_freq=10):
-    # Create data
-    z0 = Variable(torch.Tensor([[0.6, 0.3]]))
-
-    t_max = 6.29 * 5
-    n_points = 200
-
-    index_np = np.arange(0, n_points, 1, dtype=np.int)
-    index_np = np.hstack([index_np[:, None]])
-    times_np = np.linspace(0, t_max, num=n_points)
-    times_np = np.hstack([times_np[:, None]])
-
-    times = torch.from_numpy(times_np[:, :, None]).to(z0)
-    obs = ode_true(z0, times, return_whole_sequence=True).detach()
-    obs = obs + torch.randn_like(obs) * 0.01
-
-    # Get trajectory of random timespan
-    min_delta_time = 1.0
-    max_delta_time = 5.0
-    max_points_num = 32
-
-    def create_batch():
-
-        t0 = np.random.uniform(0, t_max - max_delta_time)
-        t1 = t0 + np.random.uniform(min_delta_time, max_delta_time)
-
-        idx = sorted(np.random.permutation(index_np[(times_np > t0) & (times_np < t1)])[:max_points_num])
-
-        obs_ = obs[idx]
-        ts_ = times[idx]
-        return obs_, ts_
-
-    # Train Neural ODE
-    optimizer = torch.optim.Adam(ode_trained.parameters(), lr=0.01)
-    for i in range(n_steps):
-        obs_, ts_ = create_batch()
-
-        z_ = ode_trained(obs_[0], ts_, return_whole_sequence=True)
-        loss = F.mse_loss(z_, obs_.detach())
-
-        optimizer.zero_grad()
-        loss.backward(retain_graph=True)
-        optimizer.step()
-
-        if i % plot_freq == 0:
-            z_p = ode_trained(z0, times, return_whole_sequence=True)
-
-            NNODEF.plot_trajectories(obs=[obs], times=[times], trajs=[z_p], save=f"assets/imgs/{name}/{i}.png")
-            clear_output(wait=True)
-
-
-def norm(dim):
-    return nn.BatchNord2d(dim)
-
-
-def conv3x3(in_feats, out_feats, stride=1):
-    return nn.Conv2d(in_feats, out_feats, kernel_size=3, stride=stride, padding=1, bias=False)
-
-
-def add_time(in_tensor, t):
-    bs, c, w, h = in_tensor.shape
-    return torch.cat((in_tensor, t.expand(bs, 1, w, h)), dim=1)
-
-
-class FuncODEF(ODEF):
-    def __init__(self, input_size, hidden_size, output_size):
-        super(FuncODEF, self).__init__()
-
-        self.fc1 = nn.Linear(input_size, hidden_size)
-        self.fc2 = nn.Linear(hidden_size, hidden_size)
-        self.fc3 = nn.Linear(hidden_size, output_size)
-
-    def forward(self, x, t):
-        xt = add_time(x, t)
-        h = self.norm1(torch.relu(self.fc1(xt)))
-        ht = add_time(h, t)
-        dxdt = self.norm2(torch.relu(self.conv2(ht)))
-        return dxdt
-
-
-def norm(dim):
-    return nn.BatchNorm2d(dim)
-
-
-def conv3x3(in_feats, out_feats, stride=1):
-    return nn.Conv2d(in_feats, out_feats, kernel_size=3, stride=stride, padding=1, bias=False)
-
-
-def add_time(in_tensor, t):
-    bs, c, w, h = in_tensor.shape
-    return torch.cat((in_tensor, t.expand(bs, 1, w, h)), dim=1)
-
-
-class NeuralODEF(ODEF):
-    def __init__(self, dim):
-        super(NeuralODEF, self).__init__()
-        self.conv1 = conv3x3(dim + 1, dim)
-        self.norm1 = norm(dim)
-        self.conv2 = conv3x3(dim + 1, dim)
-        self.norm2 = norm(dim)
-
-    def forward(self, x, t):
-        xt = add_time(x, t)
-        h = self.norm1(torch.relu(self.conv1(xt)))
-        ht = add_time(h, t)
-        dxdt = self.norm2(torch.relu(self.conv2(ht)))
-        return dxdt
-
-
-class ContinuousLocation(nn.Module):
-    def __init__(self, ode):
-        super(ContinuousLocation, self).__init__()
-        self.downsampling = nn.Sequential(
-            nn.Conv2d(1, 64, 3, 1),
-            norm(64),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(64, 64, 4, 2, 1),
-            norm(64),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(64, 64, 4, 2, 1),
-        )
-        self.feature = ode
-        self.norm = norm(64)
-        self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(64, 10)
-
-    def forward(self, x):
-        x = self.downsampling(x)
-        x = self.feature(x)
-        x = self.norm(x)
-        x = self.avg_pool(x)
-        shape = torch.prod(torch.tensor(x.shape[1:])).item()
-        x = x.view(-1, shape)
-        out = self.fc(x)
-        return out
-
 
 
 
@@ -589,23 +420,12 @@ class GAT(nn.Module):
         hidden = torch.zeros((1, 1, self.gru_size)).cuda()
 
         for i in range(0, target.size()[0]):
-            # if i < h.size()[0]:
-            #    temp = h[i, 0:14, :]
-            #print("temp", temp.size())
 
             h1 = self.layer1(temp)
-            # h2 = F.elu(h1)
-
-            # h2 = self.layer2(h2)
-
-            # print("rnn input", h2.size())
-            # print("h1", h1.size())
 
             rnn_inp = h1.flatten()
-            # print(rnn_inp.size())
 
             out, hid = self.rnn(rnn_inp.unsqueeze(0).unsqueeze(0), hidden)
-            # print("out size", out.size(), hid.size(), rnn_inp.size())
 
             out = out.reshape(self.nodes, self.latent_dim)
             hid = hid.reshape(self.nodes, self.latent_dim)
@@ -621,12 +441,6 @@ class GAT(nn.Module):
         h0 = self.hid2(h0)
         h0 = self.hid3(h0)
 
-        # print("h0", h0.size())
-
-        #h0 = self.hid2hid(h0)
-
-
-        #zmean = h0
 
         h0 = h0
         print("h0", h0.size(), self.hidden_dim)
@@ -659,9 +473,7 @@ class RNNEncoder(nn.Module):
         x = x.float().cuda()
         xt = torch.cat((x, time.float().cuda()), dim=-1)
 
-        output, h0 = self.rnn(x)  # Reversed
 
-        #print("output size", self.output_dim)
 
 
         output, h0 = self.rnn(x)  # Reversed
@@ -704,20 +516,14 @@ class NeuralODEDecoder(nn.Module):
         self.soft = nn.Softmax(2)
 
     def forward(self, hidden, target):
-        # z0 = z0.unsqueeze(1).unsqueeze(1).float().view(1,1,self.output_dim).cuda()
 
-
-        #print("decoder forward hidden", hidden.size())
 
         input = torch.zeros(1, 1, hidden.size()[2]).cuda()
         output = torch.zeros(1, target.size()[1], target.size()[2]).cuda()
 
         for i in range(0, target.size()[0]):
             zs, h = self.gru(input, hidden)
-            # print("decoder forward hidden", hidden.size(), time.size(), zs.size())
-            # print(hidden)
-            # print(time)
-            # print(zs)
+
 
             input = zs
 
@@ -767,12 +573,6 @@ class ODEVAE(nn.Module):
 
         rows = input_tensor.size()[0]
 
-        # print("tensor size", input_tensor.size())
-
-        encoder_hidden = torch.zeros(1, rows, self.hidden_dim).cuda()
-
-        encoder_outputs = torch.zeros(max_length, self.output_dim).cuda()
-        #decoder_outputs = torch.zeros(target_tensor.size()[0], self.output_dim)
 
         loss = 0
 
@@ -789,24 +589,10 @@ class ODEVAE(nn.Module):
 
         decoder_hidden = encoder_hidden
 
-        # print("input tensor")
-        # print(input_tensor.size())
-        # print(time.size())
-        #print(decoder_hidden.size(), "decoder hidden")
-
-        #print("target", target_tensor.size())
 
         decoder_output = self.decoder(decoder_hidden, target_tensor)
 
 
-        # decoder_hidden = encoder_hidden
-
-        # print("input tensor")
-        # print(input_tensor.size())
-        # print(time.size())
-        # print(decoder_hidden.size(), "decoder hidden")
-
-        # decoder_output = self.decoder(decoder_hidden, target_tensor)
 
         return decoder_output
 
@@ -863,8 +649,7 @@ class ODEVAE(nn.Module):
         self.encoder_optimizer.zero_grad()
         self.decoder_optimizer.zero_grad()
 
-        # input_tensor = input_tensor.unsqueeze(1)
-        # target_tensor = target_tensor.unsqueeze(1)
+
 
         input = input_tensor.reshape(input_tensor.size()[0], input_tensor.size()[1], self.nodes,
                                int(input_tensor.size(2) / self.nodes)).squeeze(1)
@@ -883,11 +668,6 @@ class ODEVAE(nn.Module):
 
         encoder_hidden = torch.zeros(trials, rows, self.hidden_dim).cuda()
 
-        # input_length = input_tensor.size(0)
-        # target_length = target_tensor.size(0)
-
-        # print("encoder hidden")
-        # print(input_tensor.size(), encoder_hidden.size())
 
         encoder_outputs = torch.zeros(max_length, self.output_dim).cuda()
 
@@ -968,19 +748,9 @@ class ODEVAE(nn.Module):
 
         decoder_hidden = encoder_hidden
 
-        # print("input tensor")
-        # print(input_tensor.size())
-        # print(time.size())
-        # print(decoder_hidden.size(), "decoder hidden")
-
         decoder_output = self.decoder(decoder_hidden, target_tensor)
 
-        # print("input tensor")
-        # print(input_tensor.size())
 
-        # print(time.size())
-
-        # print(decoder_hidden.size(), "decoder hidden")
 
         decoder_output = decoder_output.squeeze(1)
         target_tensor = target_tensor.squeeze(1)

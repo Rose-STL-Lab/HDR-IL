@@ -1,11 +1,10 @@
 
 import dgl
-import seaborn as sns
+
 
 import B1DataProcessing
 import B2Model
 
-sns.color_palette("bright")
 
 from torch import optim
 
@@ -94,13 +93,6 @@ for i in range(0, nodes):
         g2.add_edge(i, j)
 
 
-#g.add_edge(0,0)
-#g.add_edge(1,1)
-#g.add_edge(2,2)
-
-
-
-#print("sizes", int(input_size/nodes), input_size, n_latent)
 
 out_size = 100
 
@@ -141,11 +133,6 @@ p6encoder_optimizer = optim.Adam(gcn6.parameters(), lr=.0002)
 p6decoder_optimizer = optim.Adam(p6decoder.parameters(), lr=.00004)
 
 criterion = nn.MSELoss()
-# criterion = nn.BCELoss()
-# criterion = nn.CrossEntropyLoss()
-# criterion = nn.NLLLoss()
-#criterion = dtw.DTW_Loss()
-# seqmodel = ODEModel.ODEVAE(input_size, output_size, n_latent, encoder, decoder, encoder_optimizer, decoder_optimizer, criterion)
 
 
 graspmodel = B2Model.ODEVAE(input_size, output_size, n_latent, gcn1, p1decoder, p1encoder_optimizer,
@@ -192,10 +179,6 @@ sidemodel = sidemodel.cuda()
 encoder = A2SoftmaxModel.RNNEncoder(input_size, output_size, n_latent)
 decoder = A2SoftmaxModel.NeuralODEDecoder(input_size, output_size, n_latent)
 
-# criterion = nn.MSELoss()
-# criterion = nn.BCELoss()
-#criterion = nn.CrossEntropyLoss()
-# criterion = nn.NLLLoss()
 
 
 """Model training"""
@@ -258,12 +241,7 @@ if (train_model == True):
             startcord = c.reshape(rows, length, input_size).transpose(0, 1).cuda()
             endcord = f.reshape(rows, length, output_size).transpose(0, 1).cuda()
             force = y.reshape(rows, length, input_size2).transpose(0, 1).cuda()
-            # p1 = p1.reshape(rows, length, p1output).transpose(0, 1).cuda()
-            # p2 = p2.reshape(rows, length, p2output).transpose(0, 1).cuda()
-            # p3 = p3.reshape(rows, length, p3output).transpose(0, 1).cuda()
-            # p4 = p4.reshape(rows, length, p4output).transpose(0, 1).cuda()
 
-            # print("y", y[0][-1])
             target = t.reshape(length, rows, 1).cuda()
 
             trainloss = 0
@@ -274,71 +252,40 @@ if (train_model == True):
                 print("train grasp")
 
                 avgloss = graspmodel.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
-
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
-
 
 
             elif primitive == 1:
                 print("train side")
 
                 avgloss = sidemodel.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
             elif primitive == 2:
                 print("train lift")
 
                 avgloss = liftmodel.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
-
-            
 
             elif primitive == 3:
                 print("train extend")
 
                 avgloss = extendmodel.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
             elif primitive == 4:
                 print("train place")
 
                 avgloss = placemodel.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
             elif primitive == 5:
                 print("train retract")
 
                 avgloss = retractmodel.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
-
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
             else:
                 print("train none")
 
 
-            # trainavgloss = avgloss
 
-            # print(force)
             print(avgloss)
             
 
@@ -352,78 +299,6 @@ if (train_model == True):
             iteration = 0
 
 
-            """
-            j = trainsize
-            while j < test_size + trainsize:
-                iteration += 1
-
-                primitive = train_set.y[j][-1]
-
-                if primitive == 0:
-                    sequencelength = 10
-
-                else:
-                    sequencelength = 12
-
-                length = int(sequencelength)
-                c, f, y, t = train_set[j:j + sequencelength]
-                j += sequencelength
-                rows = int(c.size()[0] / length)
-
-                startcord = c.reshape(rows, length, input_size).transpose(0, 1).cuda()
-                endcord = f.reshape(rows, length, output_size).transpose(0, 1).cuda()
-
-                force = y.reshape(rows, length, input_size2).transpose(0, 1).cuda()
-                time = t.reshape(length, rows, 1).cuda()
-
-                # diff = endcord-startcord
-                diff = torch.cat((endcord, startcord), 2)
-
-                if primitive == 0:
-                    testloss += graspmodel.evaluate(startcord, endcord)
-                    #magnitude += torch.sum(torch.abs(endcord))
-                    #size += (((endcord.size()[0] * endcord.size()[1])))
-
-                elif primitive == 1:
-
-                    testloss += liftmodel.evaluate(startcord, endcord)
-                    #magnitude += torch.sum(torch.abs(endcord))
-                    #size += (((endcord.size()[0] * endcord.size()[1])))
-
-
-                elif primitive == 2:
-
-                    testloss += extendmodel.evaluate(startcord, endcord)
-                    #magnitude += torch.sum(torch.abs(endcord))
-                    #size += (((endcord.size()[0] * endcord.size()[1])))
-
-                elif primitive == 3:
-
-                    testloss += placemodel.evaluate(startcord, endcord)
-                    #magnitude += torch.sum(torch.abs(endcord))
-                    #size += (((endcord.size()[0] * endcord.size()[1])))
-
-                elif y[0][-1] == 4:
-
-                    testloss += retractmodel.evaluate(startcord, endcord)
-                    #magnitude += torch.sum(torch.abs(endcord))
-                    #size += (((endcord.size()[0] * endcord.size()[1])))
-                elif y[0][-1] == 5:
-
-                    testloss += sidemodel.evaluate(startcord, endcord)
-                    #magnitude += torch.sum(torch.abs(endcord))
-                    #size += (((endcord.size()[0] * endcord.size()[1])))
-
-                else:
-                    print("extra", primitive, j)
-
-            #testavgloss = math.sqrt(testloss / iteration) / ((torch.sum(magnitude) / size).tolist())
-            testloss = testloss/iteration
-
-            test_losses.append(testloss)
-
-            print(testloss)
-            """
 
 
     torch.save(graspmodel.state_dict(), path1)
@@ -527,10 +402,6 @@ if evaluate == True:
         startcord = c.reshape(rows, length, input_size).transpose(0, 1).cuda()
         endcord = f.reshape(rows, length, output_size).transpose(0, 1).cuda()
         force = y.reshape(rows, length, input_size2).transpose(0, 1).cuda()
-        # p1 = p1.reshape(rows, length, p1output).transpose(0, 1).cuda()
-        # p2 = p2.reshape(rows, length, p2output).transpose(0, 1).cuda()
-        # p3 = p3.reshape(rows, length, p3output).transpose(0, 1).cuda()
-        # p4 = p4.reshape(rows, length, p4output).transpose(0, 1).cuda()
 
         # print("y", y[0][-1])
         target = t.reshape(length, rows, 1).cuda()
@@ -543,11 +414,6 @@ if evaluate == True:
             print("train grasp")
 
             avgloss = graspmodel.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
-
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            # torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
 
 
@@ -555,21 +421,11 @@ if evaluate == True:
             print("train side")
 
             avgloss = sidemodel.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
-
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         elif primitive == 2:
             print("train lift")
 
             avgloss = liftmodel.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
-
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            # torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
 
 
@@ -577,36 +433,22 @@ if evaluate == True:
             print("train extend")
 
             avgloss = extendmodel.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
         elif primitive == 4:
             print("train place")
 
             avgloss = placemodel.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
         elif primitive == 5:
             print("train retract")
 
             avgloss = retractmodel.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         else:
             print("train none")
 
-        # trainavgloss = avgloss
 
-        # print(force)
         print(avgloss)
 
         if trainloss > 100000:

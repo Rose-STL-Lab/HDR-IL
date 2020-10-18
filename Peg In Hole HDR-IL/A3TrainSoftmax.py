@@ -102,11 +102,6 @@ for i in range(0, nodes):
         g2.add_edge(i, j)
 
 
-#g.add_edge(0,0)
-#g.add_edge(1,1)
-#g.add_edge(2,2)
-
-#print(g.nodes)
 
 
 gcn1 = A2SoftmaxModel.GAT(g2, int(input_size/totalnodes2), n_latent, n_hidden, 1)
@@ -150,13 +145,6 @@ if (train_model == True):
             s = random.randint(0, runs - 1) * runsize
 
 
-            #if primitive == 0:
-            #    sequencelength = 10
-
-            #else:
-            #    sequencelength = 12
-
-
             sequencelength = 130
 
 
@@ -178,17 +166,12 @@ if (train_model == True):
 
             target = t.reshape(length, rows, 1).cuda()
 
-            #diff = torch.cat((endcord, startcord), 2)
 
             trainloss = 0
             testloss = 0
 
 
             avgloss = seqmodel.train(startcord.float(), force.float())
-            #print(seqmodel(startcord, force))
-
-            # magnitude = torch.abs(f)
-            # trainavgloss = (math.sqrt(avgloss) / (torch.sum(magnitude) / (f.size()[0] * f.size()[1]))).tolist()
 
             trainavgloss = avgloss
 

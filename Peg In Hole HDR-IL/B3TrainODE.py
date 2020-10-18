@@ -77,10 +77,6 @@ losses = []
 force = []
 
 
-# initialize encoders and decoders
-
-#encoder = A2SoftmaxModel.RNNEncoder(input_size, output_size, n_latent)
-#decoder = A2SoftmaxModel.NeuralODEDecoder(input_size, output_size, n_latent)
 
 
 
@@ -104,16 +100,6 @@ for i in range(14, 28):
         g2.add_edge(i, j)
 
 
-
-
-#for i in range(14, 28):
-#    for j in range(0, 14):
-#        g2.add_edge(i, j)
-
-
-#g.add_edge(0,0)
-#g.add_edge(1,1)
-#g.add_edge(2,2)
 
 
 
@@ -351,10 +337,7 @@ if (train_model == True):
             startcord = c.reshape(rows, length, input_size).transpose(0, 1).cuda()
             endcord = f.reshape(rows, length, output_size).transpose(0, 1).cuda()
             force = y.reshape(rows, length, input_size2).transpose(0, 1).cuda()
-            # p1 = p1.reshape(rows, length, p1output).transpose(0, 1).cuda()
-            # p2 = p2.reshape(rows, length, p2output).transpose(0, 1).cuda()
-            # p3 = p3.reshape(rows, length, p3output).transpose(0, 1).cuda()
-            # p4 = p4.reshape(rows, length, p4output).transpose(0, 1).cuda()
+
 
             # print("y", y[0][-1])
             target = t.reshape(length, rows, 1).cuda()
@@ -369,9 +352,6 @@ if (train_model == True):
                 avgloss = model1.train(startcord, endcord)
                 # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
 
 
@@ -381,10 +361,6 @@ if (train_model == True):
                 avgloss = model2.train(startcord, endcord)
                 # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
-
 
             elif primitive == 2:
                 print("train lift")
@@ -392,107 +368,61 @@ if (train_model == True):
                 avgloss = model3.train(startcord, endcord)
                 # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
             elif primitive == 3:
                 print("train 3")
 
                 avgloss = model4.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
             elif primitive == 4:
                 print("train 4")
 
                 avgloss = model5.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
             elif primitive == 5:
                 print("train lift")
 
                 avgloss = model6.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
             elif primitive == 6:
                 print("train lift")
 
                 avgloss = model7.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
             elif primitive == 7:
                 print("train 7")
 
                 avgloss = model8.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
             elif primitive == 8:
                 print("train 8")
 
                 avgloss = model9.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
-
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
             elif primitive == 9 :
                 print("train 9")
 
                 avgloss = model10.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
             elif primitive == 10 :
                 print("train 10")
 
                 avgloss = model11.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
             elif primitive == 11 :
                 print("train 11")
 
                 avgloss = model12.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
             elif primitive == 12 :
                 print("train 12")
 
                 avgloss = model13.train(startcord, endcord)
-                # print(graspmodel(startcord.float()))
 
-                #magnitude = torch.abs(endcord)
-                #trainavgloss = (math.sqrt(avgloss) / (
-                            #torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
-
-            
 
 
 
@@ -630,14 +560,6 @@ if (train_model == True):
 
 
 
-
-
-
-
-    # diff = b - a
-
-
-
 if evaluate == True:
     s = 0
 
@@ -667,10 +589,7 @@ if evaluate == True:
         startcord = c.reshape(rows, length, input_size).transpose(0, 1).cuda()
         endcord = f.reshape(rows, length, output_size).transpose(0, 1).cuda()
         force = y.reshape(rows, length, input_size2).transpose(0, 1).cuda()
-        # p1 = p1.reshape(rows, length, p1output).transpose(0, 1).cuda()
-        # p2 = p2.reshape(rows, length, p2output).transpose(0, 1).cuda()
-        # p3 = p3.reshape(rows, length, p3output).transpose(0, 1).cuda()
-        # p4 = p4.reshape(rows, length, p4output).transpose(0, 1).cuda()
+
 
         # print("y", y[0][-1])
         target = t.reshape(length, rows, 1).cuda()
@@ -683,11 +602,7 @@ if evaluate == True:
             print("train grasp")
 
             avgloss = model1.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            # torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
 
 
@@ -695,21 +610,13 @@ if evaluate == True:
             print("train side")
 
             avgloss = model2.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         elif primitive == 2:
             print("train lift")
 
             avgloss = model3.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            # torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
 
 
@@ -717,98 +624,58 @@ if evaluate == True:
             print("train extend")
 
             avgloss = model4.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
         elif primitive == 4:
             print("train place")
 
             avgloss = model5.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
         elif primitive == 5:
             print("train retract")
 
             avgloss = model6.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         elif primitive == 6:
             print("train retract")
 
             avgloss = model7.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         elif primitive == 7:
             print("train retract")
 
             avgloss = model8.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         elif primitive == 8:
             print("train retract")
 
             avgloss = model9.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
         elif primitive == 9:
             print("train retract")
 
             avgloss = model10.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         elif primitive == 10:
             print("train retract")
 
             avgloss = model11.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         elif primitive == 11:
             print("train retract")
 
             avgloss = model12.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         elif primitive == 12:
             print("train retract")
 
             avgloss = model13.evaluate(startcord, endcord)
-            # print(graspmodel(startcord.float()))
 
-            # magnitude = torch.abs(endcord)
-            # trainavgloss = (math.sqrt(avgloss) / (
-            #        torch.sum(magnitude) / (endcord.size()[0] * endcord.size()[1]))).tolist()
 
         else:
             print("train none")

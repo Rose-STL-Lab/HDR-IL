@@ -26,19 +26,11 @@ import pandas as pd
 
 import torch
 from torch import Tensor, optim
-from torch import nn
-from torch.nn import functional as F
-from torch.autograd import Variable
-import B1DataProcessing as dp
 
-import csv
-import os
+
 import torch
 import torch.nn as nn
-import B2Model
 
-import torchvision
-import torchvision.transforms as transforms
 from torch.utils import data
 import A1PrimitiveData
 
@@ -115,12 +107,6 @@ for i in range(0, nodes):
         g2.add_edge(i, j)
 
 
-#g.add_edge(0,0)
-#g.add_edge(1,1)
-#g.add_edge(2,2)
-
-#print(g.nodes)
-
 
 gcn1 = A2SoftmaxModel.GAT(g2, int(input_size/totalnodes2), n_latent, n_hidden, 1)
 
@@ -162,14 +148,6 @@ if (train_model == True):
 
             s = random.randint(0, runs - 1) * runsize
 
-
-            #if primitive == 0:
-            #    sequencelength = 10
-
-            #else:
-            #    sequencelength = 12
-
-
             sequencelength = 70
 
 
@@ -177,9 +155,6 @@ if (train_model == True):
             #length = randint(1, 58)
             c, f, y, t = train_set[s:s + length]
             i += sequencelength
-
-
-
 
             rows = int(c.size()[0] / length)
 
@@ -198,10 +173,6 @@ if (train_model == True):
 
 
             avgloss = seqmodel.train(startcord.float(), force.float())
-            #print(seqmodel(startcord, force))
-
-            # magnitude = torch.abs(f)
-            # trainavgloss = (math.sqrt(avgloss) / (torch.sum(magnitude) / (f.size()[0] * f.size()[1]))).tolist()
 
             trainavgloss = avgloss
 
