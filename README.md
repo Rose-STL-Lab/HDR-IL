@@ -1,4 +1,4 @@
-# deep_imitation_learning_robotics
+# deep_imitation_learning_robotics (HDR-IL)
 
 Code for NeurIPS 2020 paper titled
 
