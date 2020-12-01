@@ -30,19 +30,19 @@ Models were trained on a laptop with an i7-8750H processor and Nvidia 1050Ti Max
 
 
 Run Instructions:
-Training code and evaluation code are saved in the 'Model' folder. Training and evaluation are contained within the same model.
+Training code and evaluation code are contained in the Models.
 Within each model, there are 7 files relevant to the model.
 
-Main - runs all of the models to get the projection
-A1PrimitiveData - Data reading for planning
+Main - Runs the models to get the projection
+A1PrimitiveData - Get data for planning
 A2SoftmaxModel - Prediction models for planning
-A3TrainSoftmax - Data processing and training/evaluation for planning
-B1DataProcessing - Data reading for dynamic model
+A3TrainSoftmax - Data processing and training/evaluation for planning model
+B1DataProcessing - Get data for dynamic model
 B2ODEModel - Prediction models for dynamic model
-B3TrainODE - Data processing and training/evaluation for planning
+B3TrainODE - Data processing and training/evaluation for dynamics model
 
 
-To run the models, run the Main file in each model. There are a few modifications that can be made.
+To run the models, run the Main file in each model. There are a few modifications that can be made within the code to select different options.
 
 1. In the A1 and B1 files, make sure the directory in the BaxterDataset constructor is pointing to the correct CSV file.
 
