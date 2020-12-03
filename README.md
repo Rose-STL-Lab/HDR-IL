@@ -8,7 +8,23 @@ Code is written with PyTorch. Data can be generated using the "Simulation Code"
 
 The prediction models are titled Table_Lift_HDR-IL for the table lifting task, and Peg In Hole HDR-IL for the peg-in-hole task referenced in the paper. Detials about training the model can be found in the "Model Readme.txt"
 
-All code for generating training data is found in the "simulations" folder. This folder also contains the necessary URDF components to build the simulations, as well as scripts to visualize ground truth and predicted simulations.
+# Generating Data
+
+All code for generating training data is found in the "simulations" folder. Simulations are built up using low-level primitives such as lift or push. All simulations are written using the PyBullet physics engine. All components in the simulations are built-up using URDF files. These files can be easily extended to create other objects/tasks to be used in simulations. In order to save time, simulations are best run on a workstation with a GPU.
+
+
+# Ground Truth Simulations 
+(Insert peg-in-hole and table-lift gifs here)
+
+# Citation
+If any code from this paper is used in future research, please be sure to include the following citation:
+(Add official citation data once available)
+
+# Authors
+
+Fan Xie
+Alex Chowdhury
+
 
 
 
