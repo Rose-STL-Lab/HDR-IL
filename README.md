@@ -9,7 +9,7 @@ Our code is implemented with PyTorch. The repository contains the files we used 
 
 
 # Demonstrations
-We created the following tasks in PyBullet to generate training data.
+We created the following tasks in PyBullet to generate training data. The GIFs below are one instance of our demonstration for each of the two tasks. A .mov file showing our model predictions can be found in "Simulations.mov"
 
 ## Table Lifting Simulation                                                 
 
