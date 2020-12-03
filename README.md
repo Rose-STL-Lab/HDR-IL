@@ -25,7 +25,7 @@ We created the following demonstrations in PyBullet to generate training data.
 
 # Generating Data
 
-All code for generating training data is found in the "simulations" folder. Simulations are built up using low-level primitives such as lift or push. All simulations are written using the PyBullet physics engine. All components in the simulations are built-up using URDF files. These files can be easily extended to create other objects/tasks to be used in simulations. In order to save time, simulations are best run on a workstation with a GPU.
+All code for generating training data is found in the "Simulation Code" folder. Simulations are built up using low-level primitives such as lift or push. All simulations are written using the PyBullet physics engine. All components in the simulations are built-up using URDF files. These files can be easily extended to create other objects/tasks to be used in simulations. In order to save time, simulations are best run on a workstation with a GPU.
 
 
 
