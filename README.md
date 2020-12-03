@@ -13,7 +13,8 @@ All code for generating training data is found in the "simulations" folder. Simu
 
 
 # Ground Truth Simulations 
-![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/tablelift.gif)
+## Table Lifting Simulation                                                 Table Lifting and Connecting Simulation   
+![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/tablelift.gif)       ![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/tableliftconnect.gif)      
 
 # Citation
 If any code from this paper is used in future research, please be sure to include the following citation:
