@@ -11,11 +11,11 @@ Our code is implemented with PyTorch. The repository contains the files we used 
 # Demonstrations
 We created the following tasks in PyBullet to generate training data. The GIFs below are one instance of our demonstration for each of the two tasks. A video file showing our model predictions can be found in "Simulations.mov"
 
-## Table Lifting Simulation                                                 
+## Table Lifting Task Demonstration                                               
 
 ![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/tablelift.gif)       
 
-## Peg-In-Hole Simulation   
+## Peg-In-Hole Task Demonstration  
 
 ![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/tableliftconnect.gif)      
 
