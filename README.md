@@ -1,4 +1,15 @@
 
+
+# Deep Imitation Learning for Bimanual Robotic Manipulation
+
+
+Code for NeurIPS 2020 paper "Deep Imitation Learning for Bimanual Robotic Manipulation"
+
+Code is implemented with PyTorch. Data can be generated using the "Simulation Code"
+
+
+The prediction models are titled Table_Lift_HDR-IL for the table lifting task, and Peg In Hole HDR-IL for the peg-in-hole task referenced in the paper. Details about training the model can be found in "Model_Readme.txt"
+
 # Demonstrations
 We created the following demonstrations in PyBullet. Our model learns to imitate these movements and generalizes them to tables at different locations.
 
@@ -11,15 +22,6 @@ We created the following demonstrations in PyBullet. Our model learns to imitate
 ![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/tableliftconnect.gif)      
 
 
-# Deep Imitation Learning for Bimanual Robotic Manipulation
-
-
-Code for NeurIPS 2020 paper "Deep Imitation Learning for Bimanual Robotic Manipulation"
-
-Code is implemented with PyTorch. Data can be generated using the "Simulation Code"
-
-
-The prediction models are titled Table_Lift_HDR-IL for the table lifting task, and Peg In Hole HDR-IL for the peg-in-hole task referenced in the paper. Details about training the model can be found in "Model_Readme.txt"
 
 
 # Generating Data
