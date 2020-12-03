@@ -17,7 +17,7 @@ We created the following tasks in PyBullet to generate training data. The GIFs b
 
 ## Peg-In-Hole Task Demonstration  
 
-![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/tableliftconnect.gif)      
+![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/peginhole.gif)      
 
 
 
