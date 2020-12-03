@@ -32,6 +32,7 @@ All code for generating training data is found in the "simulations" folder. Simu
 
 # Citation
 To cite our work:
+
 @misc{xie2020deep,
       title={Deep Imitation Learning for Bimanual Robotic Manipulation}, 
       author={Fan Xie and Alexander Chowdhury and M. Clara De Paolis Kaluza and Linfeng Zhao and Lawson L. S. Wong and Rose Yu},
