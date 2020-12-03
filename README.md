@@ -3,7 +3,7 @@
 # Deep Imitation Learning for Bimanual Robotic Manipulation
 
 
-Code for NeurIPS 2020 paper "Deep Imitation Learning for Bimanual Robotic Manipulation"
+Code for NeurIPS 2020 paper "Deep Imitation Learning for Bimanual Robotic Manipulation" (https://arxiv.org/abs/2010.05134
 
 Code is implemented with PyTorch. Data can be generated using the "Simulation Code"
 
@@ -31,8 +31,15 @@ All code for generating training data is found in the "simulations" folder. Simu
 
 
 # Citation
-If any code from this paper is used in future research, please be sure to include the following citation:
-(Add official citation data once available)
+To cite our work:
+@misc{xie2020deep,
+      title={Deep Imitation Learning for Bimanual Robotic Manipulation}, 
+      author={Fan Xie and Alexander Chowdhury and M. Clara De Paolis Kaluza and Linfeng Zhao and Lawson L. S. Wong and Rose Yu},
+      year={2020},
+      eprint={2010.05134},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO}
+}
 
 
 # Authors
