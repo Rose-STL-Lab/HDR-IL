@@ -5,7 +5,7 @@
 
 This repository is for the NeurIPS 2020 paper "Deep Imitation Learning for Bimanual Robotic Manipulation" (https://arxiv.org/abs/2010.05134). We present a deep imitation learning framework for robotic bimanual manipulation in a continuous state-action space. Our model learns to imitate table lifting movements in simulation and generalize the learned skills to tables at different locations.
 
-Our code is implemented with PyTorch. The data we used in our experiments can be generated using the "Simulation Code". More details are found below.
+Our code is implemented with PyTorch. The repository contains the files we used to generate our training data and the models we used to obtain our experiment results. More details are found below.
 
 
 # Demonstrations
