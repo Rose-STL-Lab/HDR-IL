@@ -13,7 +13,7 @@ All code for generating training data is found in the "simulations" folder. Simu
 
 
 # Ground Truth Simulations 
-(Insert peg-in-hole and table-lift gifs here)
+![](tablelift.gif)   ![](tableliftconnect.gif)
 
 # Citation
 If any code from this paper is used in future research, please be sure to include the following citation:
