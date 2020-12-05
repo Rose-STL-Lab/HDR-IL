@@ -13,11 +13,11 @@ We created the following tasks in PyBullet to generate training data. The GIFs b
 
 ### Table Lifting Task Demonstration                                               
 
-![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/tablelift.gif)       
+![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/table_lift.gif)       
 
 ### Peg-In-Hole Task Demonstration  
 
-![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/peginhole.gif)      
+![](https://github.com/Rose-STL-Lab/HDR-IL/blob/master/peg_in_hole.gif)      
 
 
 
