@@ -3,7 +3,7 @@
 # Deep Imitation Learning for Bimanual Robotic Manipulation
 
 
-This repository is for the NeurIPS 2020 paper "Deep Imitation Learning for Bimanual Robotic Manipulation" (https://arxiv.org/abs/2010.05134). We present a deep imitation learning framework for robotic bimanual manipulation in a continuous state-action space. Our model learns to imitate table lifting movements in simulation and generalize the learned skills to tables at different locations.
+This repository is for the NeurIPS 2020 paper "Deep Imitation Learning for Bimanual Robotic Manipulation" (https://papers.nips.cc/paper/2020/file/18a010d2a9813e91907ce88cd9143fdf-Paper.pdf). We present a deep imitation learning framework for robotic bimanual manipulation in a continuous state-action space. Our model learns to imitate table lifting movements in simulation and generalize the learned skills to tables at different locations.
 
 The repository contains the files we used to generate our training data using and the models we used to obtain our experiment results. We used Pybullet to generate our simulations and Pytorch to build our deep learning models. More details are found below.
 
@@ -44,7 +44,7 @@ To cite our work:
 
 # Authors
 
-Fan Xie
+Fan Xie,
 Alex Chowdhury
 
 
