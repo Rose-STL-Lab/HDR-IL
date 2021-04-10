@@ -27,7 +27,7 @@ We created the following tasks in PyBullet to generate training data. The GIFs b
 All code for generating training data is found in the "Simulation Code" folder. Simulations are built up using low-level primitives such as lift or push. All simulations are written using the PyBullet physics engine. All components in the simulations are built-up using URDF files. These files can be easily extended to create other objects/tasks to be used in simulations. In order to save time, simulations are best run on a workstation with a GPU.
 
 # Prediction Models
-The prediction models are titled "Table_Lift_HDR-IL" for the table lifting task, and "Peg In Hole HDR-IL" for the peg-in-hole task referenced in the paper. Details about training the model can be found in "Model_Readme.txt"
+The prediction models are titled "Table_Lift_HDR-IL" for the table lifting task. Details about training the model can be found in "Model_Readme.txt"
 
 # Citation
 To cite our work:
